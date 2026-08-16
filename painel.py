@@ -89,7 +89,7 @@ class Painel1:
         
         print ( f"{self.C_KALI}")
         print ( f"{self.C_GRAY}====================================================={self.RESET}")
-        print ( f" {self.C_WHITE}[+] NMAP v2.1{self.RESET} | {self.C_GRAY}Dev:{self.RESET} {self.C_GREEN}scxveryx{self.RESET}")
+        print ( f" {self.C_WHITE}[+] NMAP v2.1{self.RESET} | {self.C_GRAY}Dev:{self.RESET} {self.C_WHITE}scxveryx{self.RESET}")
         print ( f" {self.C_PINK} {self.RESET}")
         print ( f" {self.C_GRAY}[+] Dispositivo:{self.RESET} {self.C_YELLOW}{dispositivo}{self.RESET}")
         print ( f" {self.C_GRAY}[+] OS Target: Termux / Android System{self.RESET}")
@@ -236,7 +236,7 @@ class Painel1:
             os.system ( 'clear')
             self.banner ( )
             
-            print ( f"{self.C_WHITE}┌── ( {self.C_KALI}kali㉿scxveryx -termux{self.C_WHITE} ) -[{self.C_GRAY}~/painel{self.C_WHITE}]{self.RESET}")
+            print ( f"{self.C_WHITE}┌── ( {self.C_KALI}kali㉿scxveryx{self.C_WHITE} ) -[{self.C_GRAY}~/painel{self.C_WHITE}]{self.RESET}")
             print ( f"{self.C_WHITE}└─► Opções disponíveis:{self.RESET}\n")
             
             print ( f"  {self.C_KALI}[1]{self.RESET} Port Scanner (TCP Nativo ) ")
@@ -248,13 +248,13 @@ class Painel1:
             print ( "")
 
             try:
-                opcao = input ( f"{self.C_WHITE}┌── ( {self.C_KALI}kali㉿davi{self.C_WHITE} ) -[{self.C_RED}menu{self.C_WHITE}]\n└─{self.C_GREEN}$ {self.RESET}" ) .strip ( )
+                opcao = input ( f"{self.C_WHITE}┌── ( {self.C_KALI}kali㉿scxveryx{self.C_WHITE} ) -[{self.C_RED}menu{self.C_WHITE}]\n└─{self.C_GREEN}$ {self.RESET}" ) .strip ( )
             except KeyboardInterrupt:
-                print ( f"\n\n{self.C_RED}[!] Encerrando... Até mais, Davi!{self.RESET}")
+                print ( f"\n\n{self.C_RED}[!] Encerrando... Até mais, scxveryx!{self.RESET}")
                 break
             
             if opcao == '0':
-                print ( f"\n{self.C_RED}[!] Encerrando... Até mais, Davi!{self.RESET}")
+                print ( f"\n{self.C_RED}[!] Encerrando... Até mais, scxveryx!{self.RESET}")
                 break
                 
             elif opcao == '5':
