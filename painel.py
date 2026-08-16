@@ -151,7 +151,6 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
                   Evan M Corcoran
                                                                                        
                                                                                                           
-{self.RESET}
 """
 
         print(arte)
