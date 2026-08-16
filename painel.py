@@ -10,13 +10,13 @@ import subprocess
 class Painel1:
     def __init__ ( self ) :
         # Cores ANSI - Estilo Kali Linux
-        self.C_RED = "\033[38;5;33m"     # Vermelho
         self.C_RED = "\033[38;5;196m"     # Vermelho
-        self.C_RED= "\033[38;5;46m"    # Vermelho
-        self.C_RED = "\033[38;5;226m"  # Vermelho
-        self.C_RED = "\033[38;5;242m"    # Vermelho
-        self.C_RED = "\033[1;37m"       # Vermelho
-        self.C_RED = "\033[38;5;206m"    # Vermelho
+        self.C_RED = "\033[38;5;196m"     # Vermelho
+        self.C_RED= "\033[38;5;196m"    # Vermelho
+        self.C_RED = "\033[38;5;196m"  # Vermelho
+        self.C_RED = "\033[38;5;196m"    # Vermelho
+        self.C_RED = "\033[38;5;196m"       # Vermelho
+        self.C_RED = ""\033[38;5;196m"    # Vermelho
         self.RESET = "\033[0m
 
         # Senha padrão do seu painel
