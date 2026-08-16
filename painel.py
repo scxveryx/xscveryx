@@ -39,7 +39,7 @@ class Painel1:
 
     def tocar_som_entrada ( self ) :
         """Saudação em voz compatível com Termux e PyCode"""
-        mensagem = "Olá amigo Gabriel! Acesso concedido. Bem-vindo ao seu painel."
+        mensagem = "Olá Eraz! Acesso concedido. Bem-vindo ao seu painel."
         
         # Tentativa 1: Voz via Termux
         res = os.system ( f"termux-tts-speak -l pt '{mensagem}' >/dev/null 2>&1 &")
@@ -62,11 +62,11 @@ class Painel1:
         while tentativas < max_tentativas:
             os.system ( 'clear')
             self.banner ( )
-            print ( f"{self.C_WHITE}┌── ( {self.C_RED}kali🔒scxveryx{self.C_WHITE} ) -[{self.C_KALI}login{self.C_WHITE}]{self.RESET}")
-            senha = input ( f"{self.C_WHITE}└─{self.C_GREEN}$ {self.RESET}Digite a senha de acesso: " ) .strip ( )
+            print ( f"{self.C_RED}┌── ( {self.C_RED}kali🔒scxveryx{self.C_RED} ) -[{self.C_RED}login{self.C_RED}]{self.RESET}")
+            senha = input ( f"{self.C_RED}└─{self.C_RED}$ {self.RESET}Digite a senha de acesso: " ) .strip ( )
 
             if senha == self.SENHA_CORRETA:
-                print ( f"\n{self.C_GREEN}[+] Acesso concedido! Carregando o painel...{self.RESET}")
+                print ( f"\n{self.C_RED}[+] Acesso concedido! Carregando o painel...{self.RESET}")
                 self.tocar_som_entrada ( )
                 time.sleep ( 1.5)
                 return True
