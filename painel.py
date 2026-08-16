@@ -88,12 +88,12 @@ class Painel1:
         dispositivo = self.obter_marca_celular ( )
         
         print ( f"{self.C_KALI}")
-        print ( f"{self.C_GRAY}====================================================={self.RESET}")
+        print ( f"{self.C_RED}====================================================={self.RESET}")
         print ( f" {self.C_RED}[+] IP tracked{self.RESET} | {self.C_RED}Dev:{self.RESET} {self.C_WHITE}scxveryx{self.RESET}")
-        print ( f" {self.C_PINK} {self.RESET}")
-        print ( f" {self.C_GRAY}[+] Dispositivo:{self.RESET} {self.C_RED}{dispositivo}{self.RESET}")
-        print ( f" {self.C_GRAY}[+] OS Target: computer {self.RESET}")
-        print ( f"{self.C_GRAY}====================================================={self.RESET}\n")
+        print ( f" {self.C_RED} glozety team{self.RESET}")
+        print ( f" {self.C_RED}[+] Dispositivo:{self.RESET} {self.C_RED}{dispositivo}{self.RESET}")
+        print ( f" {self.C_RED}[+] OS Target:{self.C_RED} computer {self.RESET}")
+        print ( f"{self.C_RED}====================================================={self.RESET}\n")
 
     def limpar_alvo ( self, alvo ) :
         """Sanitiza e limpa a URL fornecida"""
@@ -226,8 +226,8 @@ class Painel1:
             except Exception:
                 pass
 
-        print ( f"{self.C_GRAY}-----------------------------------------------------{self.RESET}")
-        print ( f"\n{self.C_GREEN}[+] Concluído! Dispositivos ativos encontrados: {encontrados}{self.RESET}")
+        print ( f"{self.C_RED}-----------------------------------------------------{self.RESET}")
+        print ( f"\n{self.C_RED}[+] Concluído! Dispositivos ativos encontrados: {encontrados}{self.RESET}")
 
     def abrir_interface ( self ) :
         self.autenticar ( )
@@ -236,8 +236,8 @@ class Painel1:
             os.system ( 'clear')
             self.banner ( )
             
-            print ( f"{self.C_WHITE}┌── ( {self.C_KALI}kali㉿scxveryx{self.C_WHITE} ) -[{self.C_GRAY}~/painel{self.C_WHITE}]{self.RESET}")
-            print ( f"{self.C_WHITE}└─► Opções disponíveis:{self.RESET}\n")
+            print ( f"{self.C_RED}┌── ( {self.C_RED}kali㉿scxveryx{self.C_RED} ) -[{self.C_RED}~/painel{self.C_RED}]{self.RESET}")
+            print ( f"{self.C_RED}└─► Opções disponíveis:{self.RESET}\n")
             
             print ( f"  {self.C_RED}[1]{self.RESET} Port Scanner (TCP Nativo ) ")
             print ( f"  {self.C_RED}[2]{self.RESET} Resolver IP / DNS")
@@ -262,10 +262,10 @@ class Painel1:
 
             elif opcao == '4':
                 self.scan_rede_local ( )
-                input ( f"\n{self.C_GRAY}[Pressione ENTER para retornar ao menu]{self.RESET}")
+                input ( f"\n{self.C_RED}[Pressione ENTER para retornar ao menu]{self.RESET}")
 
             elif opcao in ['1', '2', '3']:
-                alvo = input ( f"\n{self.C_YELLOW}[?] Digite o Alvo (ex: site.com ou IP ) : {self.RESET}" ) .strip ( )
+                alvo = input ( f"\n{self.C_RES}[?] Digite o Alvo (ex: site.com ou IP ) : {self.RESET}" ) .strip ( )
                 if not alvo:
                     continue
 
@@ -279,7 +279,7 @@ class Painel1:
                 input ( f"\n{self.C_GRAY}[Pressione ENTER para retornar ao menu]{self.RESET}")
             else:
                 print ( f"\n{self.C_RED}[X] Opção inválida.{self.RESET}")
-                input ( f"\n{self.C_GRAY}[Pressione ENTER para continuar]{self.RESET}")
+                input ( f"\n{self.C_RED}[Pressione ENTER para continuar]{self.RESET}")
 
 if __name__ == "__main__":
     painel = Painel1 ( )
