@@ -84,10 +84,10 @@ class Painel1:
         sys.exit ( )
 
     def banner(self):
-    """Cabeçalho em ASCII Art"""
+    "Cabeçalho em ASCII Art"
     dispositivo = self.obter_marca_celular()
 
-    print(f"""{self.C_RED}
+    print(f"{self.C_RED}
 ██▓ ███▄ ▄███▓ ██▓███   █    ██ ▄▄▄█████▓ ███▄ ▄███▓ ██▓ ██▓     ██▓    ▓█████  ██▀███
 ▓██▒▓██▒▀█▀ ██▒▓██░  ██▒ ██  ▓██▒▓  ██▒ ▓▒▓██▒▀█▀ ██▒▓██▒▓██▒    ▓██▒    ▓█   ▀ ▓██ ▒ ██▒
 ▒██▒▓██    ▓██░▓██░ ██▓▒▓██  ▒██░▒ ▓██░ ▒░▓██    ▓██░▒██▒▒██░    ▒██░    ▒███   ▓██ ░▄█ ▒
@@ -97,7 +97,7 @@ class Painel1:
 ▒ ░░  ░      ░░▒ ░     ░░▒░ ░ ░     ░    ░  ░      ░ ▒ ░░ ░ ▒  ░░ ░ ▒  ░ ░ ░  ░  ░▒ ░ ▒░
 ▒ ░░      ░   ░░        ░░░ ░ ░   ░      ░      ░    ▒ ░  ░ ░     ░ ░      ░     ░░   ░
 ░         ░               ░                     ░    ░      ░  ░    ░  ░   ░  ░   ░
-{self.RESET}""")
+{self.RESET}")
 
     print(f"{self.C_RED}====================================================={self.RESET}")
     print(f"{self.C_RED}[+] Dev: {self.RESET}scxveryx")
