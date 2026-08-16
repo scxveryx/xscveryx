@@ -114,7 +114,7 @@ class Painel1:
             print ( f"{self.C_RED}[-] Endereço do alvo é inválido.{self.RESET}")
             return
 
-        print ( f"\n{self.C_KALI}[*] [SCAN] Iniciando varredura em: {self.C_WHITE}{alvo_limpo}{self.RESET}\n")
+        print ( f"\n{self.C_RED}[*] [SCAN] Iniciando varredura em: {self.C_WHITE}{alvo_limpo}{self.RESET}\n")
         portas = [21, 22, 23, 25, 53, 80, 110, 443, 8080, 3306]
         
         try:
