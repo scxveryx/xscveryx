@@ -90,7 +90,7 @@ class Painel1:
         print ( f"{self.C_RED}")
         print ( f"{self.C_RED}====================================================={self.RESET}")
         print ( f" {self.C_RED}[+] {self.C_RED}Dev:{self.RESET}{self.C_RED}scxveryx{self.RESET}")
-        print ( f" {self.C_RED}[+] Glozety team{self.RESET}")
+        print ( f" {self.C_RED}[+] Ip tracked{self.RESET}")
         print ( f" {self.C_RED}[+] Dispositivo:{self.RESET} {self.C_RED}{dispositivo}{self.RESET}")
         print ( f" {self.C_RED}[+] OS Target:{self.C_RED} computer {self.RESET}")
         print ( f"{self.C_RED}====================================================={self.RESET}\n")
