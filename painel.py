@@ -163,8 +163,8 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
         )
 
         print(
-            f"{self.C_RED}[+] IP tracked:{self.RESET} "
-                none"
+            f"{self.C_RED}[+] IP tracked:{self.RESET} 
+          
         )
 
         print(
