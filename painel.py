@@ -55,7 +55,7 @@ class Painel1:
                 print ( "\a")
 
     def autenticar ( self ) :
-        """Sistema de Login com limite de 3 tentativas"""
+     """Sistema de Login com limite de 3 tentativas"""
         tentativas = 0
         max_tentativas = 3
 
