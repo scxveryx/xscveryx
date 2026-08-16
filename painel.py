@@ -87,10 +87,10 @@ class Painel1:
         """Cabeçalho em ASCII Art Ajeitado com a mensagem"""
         dispositivo = self.obter_marca_celular ( )
         
-        print ( f"{self.C_KALI}")
+        print ( f"{self.C_RED}")
         print ( f"{self.C_RED}====================================================={self.RESET}")
-        print ( f" {self.C_RED}[+] IP tracked{self.RESET} | {self.C_RED}Dev:{self.RESET} {self.C_WHITE}scxveryx{self.RESET}")
-        print ( f" {self.C_RED} glozety team{self.RESET}")
+        print ( f" {self.C_RED}[+] {self.RESET} | {self.C_RED}Dev:{self.RESET} {self.C_RED}scxveryx{self.RESET}")
+        print ( f" {self.C_RED}[+] glozety team{self.RESET}")
         print ( f" {self.C_RED}[+] Dispositivo:{self.RESET} {self.C_RED}{dispositivo}{self.RESET}")
         print ( f" {self.C_RED}[+] OS Target:{self.C_RED} computer {self.RESET}")
         print ( f"{self.C_RED}====================================================={self.RESET}\n")
