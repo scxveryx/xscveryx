@@ -84,7 +84,7 @@ class Painel1:
         sys.exit ( )
 
     def banner(self):
-    """Cabeçalho em ASCII Art"""
+           """Cabeçalho em ASCII Art"""
     dispositivo = self.obter_marca_celular()
 
     print(f"{self.C_RED}
