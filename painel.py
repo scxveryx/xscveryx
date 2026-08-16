@@ -54,7 +54,7 @@ class Painel1:
             except Exception:
                 print ( "\a")
 
-    def autenticar ( self ):
+    def autenticar (self):
      """Sistema de Login com limite de 3 tentativas"""
         tentativas = 0
         max_tentativas = 3
