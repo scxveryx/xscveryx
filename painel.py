@@ -90,7 +90,7 @@ class Painel1:
         print(f"{self.C_KALI}")
         print(f"{self.C_GRAY}====================================================={self.RESET}")
         print(f" {self.C_WHITE}[+] NMAP v2.1{self.RESET} | {self.C_GRAY}Dev:{self.RESET} {self.C_GREEN}scxveryx{self.RESET}")
-        print(f" {self.C_BLUE} Nmap {self.RESET}")
+        print(f" {self.C_WHITE} Nmap {self.RESET}")
         print(f" {self.C_GRAY}[+] Dispositivo:{self.RESET} {self.C_YELLOW}{dispositivo}{self.RESET}")
         print(f" {self.C_GRAY}[+] OS Target: Termux / Android System{self.RESET}")
         print(f"{self.C_GRAY}====================================================={self.RESET}\n")
