@@ -119,13 +119,13 @@ class Painel1:
         
         try:
             ip = socket.gethostbyname ( alvo_limpo)
-            print ( f"{self.C_GREEN}[+] Target IP: {ip}{self.RESET}\n")
+            print ( f"{self.C_RED}[+] Target IP: {ip}{self.RESET}\n")
         except socket.gaierror:
             print ( f"{self.C_RED}[-] Falha ao resolver o endereço IP do alvo.{self.RESET}")
             return
 
-        print ( f"{self.C_GRAY}PORTA     SERVIÇO      STATUS{self.RESET}")
-        print ( f"{self.C_GRAY}-----------------------------------{self.RESET}")
+        print ( f"{self.C_RED}PORTA     SERVIÇO      STATUS{self.RESET}")
+        print ( f"{self.C_RED}-----------------------------------{self.RESET}")
         
         servicos = {21:"FTP", 22:"SSH", 23:"TELNET", 25:"SMTP", 53:"DNS", 80:"HTTP", 110:"POP3", 443:"HTTPS", 8080:"PROXY", 3306:"MYSQL"}
 
@@ -142,7 +142,7 @@ class Painel1:
                     print ( f"{porta:<9} {nome_serv:<12} {self.C_RED}[ fechada ]{self.RESET}")
                 s.close ( )
             except KeyboardInterrupt:
-                print ( f"\n{self.C_YELLOW}[!] Scan interrompido.{self.RESET}")
+                print ( f"\n{self.C_RED}[!] Scan interrompido.{self.RESET}")
                 break
             except Exception:
                 print ( f"{porta:<9} {nome_serv:<12} {self.C_YELLOW}[ ERRO ]{self.RESET}")
@@ -154,10 +154,10 @@ class Painel1:
             print ( f"{self.C_RED}[-] Endereço do alvo é inválido.{self.RESET}")
             return
 
-        print ( f"\n{self.C_KALI}[*] [PING] Resolvendo endereço IP...{self.RESET}\n")
+        print ( f"\n{self.C_RED}[*] [PING] Resolvendo endereço IP...{self.RESET}\n")
         try:
             ip = socket.gethostbyname ( alvo_limpo)
-            print ( f" {self.C_GREEN}[+] HOST ATIVO:{self.RESET} {alvo_limpo} {self.C_GRAY}-->{self.RESET} {ip}")
+            print ( f" {self.C_RED}[+] HOST ATIVO:{self.RESET} {alvo_limpo} {self.C_GRAY}-->{self.RESET} {ip}")
         except Exception:
             print ( f" {self.C_RED}[-] HOST INATIVO OU INEXISTENTE{self.RESET}")
 
@@ -168,7 +168,7 @@ class Painel1:
             print ( f"{self.C_RED}[-] Endereço do alvo é inválido.{self.RESET}")
             return
 
-        print ( f"\n{self.C_KALI}[*] [HTTP RECON] Analisando Headers da Aplicação...{self.RESET}\n")
+        print ( f"\n{self.C_RED}[*] [HTTP RECON] Analisando Headers da Aplicação...{self.RESET}\n")
         
         import ssl
         ctx = ssl.create_default_context ( )
@@ -180,11 +180,11 @@ class Painel1:
             req = urllib.request.Request ( url, headers={'User-Agent': 'Mozilla/5.0 (KaliLinux ) '})
             with urllib.request.urlopen ( req, timeout=4, context=ctx) as res:
                 headers = res.info ( )
-                print ( f" {self.C_GREEN}[+] Server:{self.RESET} {headers.get ( 'Server', 'Desconhecido' ) }")
-                print ( f" {self.C_GREEN}[+] Powered-By:{self.RESET} {headers.get ( 'X-Powered-By', 'Não detectado' ) }")
-                print ( f" {self.C_GREEN}[+] Content-Type:{self.RESET} {headers.get ( 'Content-Type', 'Não informado' ) }")
+                print ( f" {self.C_RED}[+] Server:{self.RESET} {headers.get ( 'Server', 'Desconhecido' ) }")
+                print ( f" {self.C_RED}[+] Powered-By:{self.RESET} {headers.get ( 'X-Powered-By', 'Não detectado' ) }")
+                print ( f" {self.C_RED}[+] Content-Type:{self.RESET} {headers.get ( 'Content-Type', 'Não informado' ) }")
         except urllib.error.HTTPError as e:
-            print ( f" {self.C_YELLOW}[!] Código HTTP: {e.code}{self.RESET}")
+            print ( f" {self.C_RED}[!] Código HTTP: {e.code}{self.RESET}")
         except urllib.error.URLError as e:
             print ( f" {self.C_RED}[-] Erro de conexão/URL: {e.reason}{self.RESET}")
         except Exception as e:
@@ -192,7 +192,7 @@ class Painel1:
 
     def scan_rede_local ( self ) :
         """Varre a rede Wi-Fi local procurando aparelhos/IPs ativos"""
-        print ( f"\n{self.C_KALI}[*] [LAN SCAN] Varrendo a rede Wi-Fi local por dispositivos ativos...{self.RESET}\n")
+        print ( f"\n{self.C_RED}[*] [LAN SCAN] Varrendo a rede Wi-Fi local por dispositivos ativos...{self.RESET}\n")
         
         try:
             s = socket.socket ( socket.AF_INET, socket.SOCK_DGRAM)
@@ -204,8 +204,8 @@ class Painel1:
             prefixo = "192.168.0."
             ip_local = ""
 
-        print ( f"{self.C_GRAY}IP DISPOSITIVO            STATUS           INFO{self.RESET}")
-        print ( f"{self.C_GRAY}-----------------------------------------------------{self.RESET}")
+        print ( f"{self.C_RED}IP DISPOSITIVO            STATUS           INFO{self.RESET}")
+        print ( f"{self.C_RED}-----------------------------------------------------{self.RESET}")
 
         encontrados = 0
         for i in range ( 1, 255 ) :
@@ -217,11 +217,11 @@ class Painel1:
                 sock.close ( )
 
                 if resultado == 0 or ip_teste == ip_local:
-                    info = f"{self.C_YELLOW} ( Seu Celular ) {self.RESET}" if ip_teste == ip_local else f"{self.C_GRAY} ( Dispositivo na Rede ) {self.RESET}"
-                    print ( f"{ip_teste:<25} {self.C_GREEN}[ ATIVO ]{self.RESET}      {info}")
+                    info = f"{self.C_RED} ( Seu Celular ) {self.RESET}" if ip_teste == ip_local else f"{self.C_GRAY} ( Dispositivo na Rede ) {self.RESET}"
+                    print ( f"{ip_teste:<25} {self.C_RED}[ ATIVO ]{self.RESET}      {info}")
                     encontrados += 1
             except KeyboardInterrupt:
-                print ( f"\n{self.C_YELLOW}[!] Varredura cancelada.{self.RESET}")
+                print ( f"\n{self.C_RED}[!] Varredura cancelada.{self.RESET}")
                 break
             except Exception:
                 pass
