@@ -265,7 +265,7 @@ class Painel1:
                 input ( f"\n{self.C_RED}[Pressione ENTER para retornar ao menu]{self.RESET}")
 
             elif opcao in ['1', '2', '3']:
-                alvo = input ( f"\n{self.C_RES}[?] Digite o Alvo (ex: site.com ou IP ) : {self.RESET}" ) .strip ( )
+                alvo = input ( f"\n{self.C_RED}[?] Digite o Alvo (ex: site.com ou IP ) : {self.RESET}" ) .strip ( )
                 if not alvo:
                     continue
 
