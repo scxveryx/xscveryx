@@ -16,7 +16,7 @@ class Painel1:
         self.C_RED = "\033[38;5;196m"  # Vermelho
         self.C_RED = "\033[38;5;196m"    # Vermelho
         self.C_RED = "\033[38;5;196m"       # Vermelho
-        self.C_RED = ""\033[38;5;196m"    # Vermelho
+        self.C_RED = "\033[38;5;196m"    # Vermelho
         self.RESET = "\033[0m
 
         # Senha padrão do seu painel
