@@ -10,14 +10,14 @@ import subprocess
 class Painel1:
     def __init__ ( self ) :
         # Cores ANSI - Estilo Kali Linux
+        self.C_KALI = "\033[38;5;33m"     # Azul Kali
         self.C_RED = "\033[38;5;196m"     # Vermelho
-        self.C_RED = "\033[38;5;196m"     # Vermelho
-        self.C_RED= "\033[38;5;196m"    # Vermelho
-        self.C_RED = "\033[38;5;196m"  # Vermelho
-        self.C_RED = "\033[38;5;196m"    # Vermelho
-        self.C_RED = "\033[38;5;196m"       # Vermelho
-        self.C_RED = "\033[38;5;196m"    # Vermelho
-        self.RESET = \033[0m
+        self.C_GREEN = "\033[38;5;46m"    # Verde Neon
+        self.C_YELLOW = "\033[38;5;226m"  # Amarelo
+        self.C_GRAY = "\033[38;5;242m"    # Cinza
+        self.C_WHITE = "\033[1;37m"       # Branco Negrito
+        self.C_PINK = "\033[38;5;206m"    # Rosa
+        self.RESET = "\033[0m"
 
         # Senha padrão do seu painel
         self.SENHA_CORRETA = "203159"
@@ -276,7 +276,7 @@ class Painel1:
                 elif opcao == '3':
                     self.obter_headers ( alvo)
 
-                input ( f"\n{self.C_GRAY}[Pressione ENTER para retornar ao menu]{self.RESET}")
+                input ( f"\n{self.C_RED}[Pressione ENTER para retornar ao menu]{self.RESET}")
             else:
                 print ( f"\n{self.C_RED}[X] Opção inválida.{self.RESET}")
                 input ( f"\n{self.C_RED}[Pressione ENTER para continuar]{self.RESET}")
