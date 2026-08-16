@@ -92,7 +92,7 @@ class Painel1:
         print ( f" {self.C_WHITE}[+] NMAP v2.1{self.RESET} | {self.C_GRAY}Dev:{self.RESET} {self.C_WHITE}scxveryx{self.RESET}")
         print ( f" {self.C_PINK} {self.RESET}")
         print ( f" {self.C_GRAY}[+] Dispositivo:{self.RESET} {self.C_YELLOW}{dispositivo}{self.RESET}")
-        print ( f" {self.C_GRAY}[+] OS Target: Termux / Android System{self.RESET}")
+        print ( f" {self.C_GRAY}[+] OS Target: computer {self.RESET}")
         print ( f"{self.C_GRAY}====================================================={self.RESET}\n")
 
     def limpar_alvo ( self, alvo ) :
