@@ -79,17 +79,17 @@ class Painel1:
             self.banner()
 
             print(
-                f"{self.C_RED}┌── ( kali㉿scxveryx ) -[login]{self.RESET}"
+                f"{self.C_CIANO}┌── ( kali㉿scxveryx ) -[login]{self.RESET}"
             )
 
             senha = input(
-                f"{self.C_RED}└─$ {self.RESET}"
+                f"{self.C_CIANO}└─$ {self.RESET}"
                 "Digite a senha de acesso: "
             ).strip()
 
             if senha == self.SENHA_CORRETA:
                 print(
-                    f"\n{self.C_GREEN}[+] Acesso concedido! "
+                    f"\n{self.C_CIANO}[+] Acesso concedido! "
                     f"Carregando o painel...{self.RESET}"
                 )
 
