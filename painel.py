@@ -1,4 +1,3 @@
-                    
 import os
 import socket
 import urllib.request
@@ -52,15 +51,13 @@ class Painel1:
             return "Android Device"
 
     def tocar_som_entrada(self):
-        """Saudação em voz compatível com Termux e PyCode."""
+        """Saudação em voz compatível com Termux."""
         mensagem = "Olá Eraz! Acesso concedido. Bem-vindo ao seu painel."
 
-        # Tentativa 1: Termux
         resultado = os.system(
             f"termux-tts-speak -l pt '{mensagem}' >/dev/null 2>&1"
         )
 
-        # Tentativa 2: pyttsx3
         if resultado != 0:
             try:
                 import pyttsx3
@@ -131,14 +128,16 @@ class Painel1:
 
         arte = f"""
 {self.C_CIANO}
-  ░██████   ░██ ░██                                ░██                ░███████                                    
- ░██   ░██  ░██ ░██                                ░██                ░██   ░██                                   
-░██     ░██ ░██ ░████████   ░███████      ░████████  ░███████     ░██    ░██  ░███████  ░██    ░██  ░███████  
-░██     ░██ ░██ ░██    ░██ ░██    ░██    ░██    ░██ ░██    ░██      ░██    ░██ ░██    ░██ ░██    ░██ ░██        
-░██     ░██ ░██ ░██    ░██ ░██    ░██    ░██    ░██ ░█████████     ░██    ░██ ░█████████ ░██    ░██  ░███████  
- ░██   ░██  ░██ ░██    ░██ ░██    ░██    ░██   ░███ ░██              ░██   ░██  ░██        ░██   ░███        ░██ 
-  ░██████   ░██ ░██    ░██  ░███████     ░█████░██  ░███████      ░███████    ░███████   ░█████░██  ░███████                                                                                                       
-                                                                                                              
+  ░██████   ░██ ░██                                ░██                ░███████
+ ░██   ░██  ░██ ░██                                ░██                ░██   ░██
+░██     ░██ ░██ ░████████   ░███████      ░████████  ░███████     ░██    ░██
+░██     ░██ ░██ ░██    ░██ ░██    ░██    ░██    ░██ ░██    ░██      ░██    ░██
+░██     ░██ ░██ ░██    ░██ ░██    ░██    ░██    ░██ ░█████████     ░██    ░██
+ ░██   ░██  ░██ ░██    ░██ ░██    ░██    ░██   ░███ ░██              ░██   ░██
+  ░██████   ░██ ░██    ░██  ░███████     ░█████░██  ░███████      ░███████
+{self.RESET}
+"""
+
         print(arte)
 
         print(
@@ -152,8 +151,8 @@ class Painel1:
         )
 
         print(
-    f"{self.C_CIANO}[+] IP tracked:{self.RESET} "
-    "Não disponível"
+            f"{self.C_CIANO}[+] IP tracked:{self.RESET} "
+            "Não disponível"
         )
 
         print(
@@ -266,10 +265,7 @@ class Painel1:
                 ) as sock:
 
                     sock.settimeout(0.6)
-
-                    resultado = sock.connect_ex(
-                        (ip, porta)
-                    )
+                    resultado = sock.connect_ex((ip, porta))
 
                 nome_serv = servicos.get(
                     porta,
@@ -303,7 +299,7 @@ class Painel1:
                 )
                 break
 
-            except Exception as erro:
+            except Exception:
                 print(
                     f"{porta:<9} "
                     f"{'DESCONHECIDO':<12} "
@@ -368,7 +364,6 @@ class Painel1:
         ctx.check_hostname = False
         ctx.verify_mode = ssl.CERT_NONE
 
-        # Tenta HTTPS primeiro
         urls = [
             f"https://{alvo_limpo}",
             f"http://{alvo_limpo}"
@@ -494,7 +489,6 @@ class Painel1:
                 ) as sock:
 
                     sock.settimeout(0.04)
-
                     resultado = sock.connect_ex(
                         (ip_teste, 80)
                     )
@@ -547,7 +541,7 @@ class Painel1:
         )
 
     def abrir_interface(self):
-        """Inicia o painel principal"""
+        """Inicia o painel principal."""
         self.autenticar()
 
         while True:
@@ -673,7 +667,7 @@ class Painel1:
                 )
 
 
-if __name__ == "__olho__":
+# Inicia o programa quando o arquivo olho.py é executado diretamente
+if __name__ == "__main__":
     painel = Painel1()
     painel.abrir_interface()
-        
