@@ -547,7 +547,7 @@ class Painel1:
         )
 
     def abrir_interface(self):
-        """Inicia o painel principal."""
+        """Inicia o painel principal"""
         self.autenticar()
 
         while True:
