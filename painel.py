@@ -564,7 +564,7 @@ class Painel1:
 
             print(
                 f"{self.C_CIANO}"
-                "└─► DIGA OQUE QUERES, FILHO DE DEUS:"
+                "└─► DIGA OQUE QUERES, FILHO DE DEUS"
                 f"{self.RESET}\n"
             )
 
