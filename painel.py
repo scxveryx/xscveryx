@@ -13,6 +13,7 @@ import ssl
 class Painel1:
     def __init__(self):
         # Cores ANSI - Estilo Kali Linux
+        self.C_CIANO = "\033[38;5;33m"
         self.C_KALI = "\033[38;5;33m"
         self.C_RED = "\033[38;5;196m"
         self.C_GREEN = "\033[38;5;46m"
@@ -129,56 +130,44 @@ class Painel1:
         dispositivo = self.obter_marca_celular()
 
         arte = f"""
-{self.C_RED}
-          .e$$$$$$$$$o.  .z+""-eu.      .xu..
-     d$$$$$$$$$$$$$$$$$o.    $$$$$u#         ^%s
-   u$$$$$$$$$$$$$$$$$$$$$$.  $$$$"              ^s
-  u$$$$$$$$$$$$$$$$$$$$$$$$u $$$                  ".
-  $$$$$$$$$$$$$$$$$$$$$$$$$$c$$                    'c
- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$               :       k
- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$              :z!      '>
- $$$$$$$$$$$$$$$$$$$$$$$$$$$$EB             R         5
- $$$$$$$$"RR$$$$$$$$$$$$$$$$$E'            :E         9
- $$$$$$P   $$$$$$$$$$$$$$$$$$E k           ' `%       F
- $$$$$"    9$$$$$$$$$$$$$$$$$E ?           '   *     z
- $$$$      9$$$$$$$$$$$$$$$$$`  $           >   k   X
- d**Nx     $$$$$$$$$$$$$$$$$$   ''          5   ?  f
-$$  ?Lk   :$$$$$$$$$$$$$$$$$$               `  u#$$N
-RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
- "**#`    $$$$$$$$$$$$$$$$$$$                ? "$$$@`
-         J$*$$$$$$$$$$$$$$$$$                 L
-        x$$$$c#$$$$**#""""""""$$$$$$$$$$$$eed"R
-                  Evan M Corcoran                                                                                                 
-"""
+{self.C_CIANO}
+  ░██████   ░██ ░██                                ░██                ░███████                                    
+ ░██   ░██  ░██ ░██                                ░██                ░██   ░██                                   
+░██     ░██ ░██ ░████████   ░███████      ░████████  ░███████     ░██    ░██  ░███████  ░██    ░██  ░███████  
+░██     ░██ ░██ ░██    ░██ ░██    ░██    ░██    ░██ ░██    ░██      ░██    ░██ ░██    ░██ ░██    ░██ ░██        
+░██     ░██ ░██ ░██    ░██ ░██    ░██    ░██    ░██ ░█████████     ░██    ░██ ░█████████ ░██    ░██  ░███████  
+ ░██   ░██  ░██ ░██    ░██ ░██    ░██    ░██   ░███ ░██              ░██   ░██  ░██        ░██   ░███        ░██ 
+  ░██████   ░██ ░██    ░██  ░███████     ░█████░██  ░███████      ░███████    ░███████   ░█████░██  ░███████                                                                                                       
+                                                                                                              
         print(arte)
 
         print(
-            f"{self.C_RED}"
+            f"{self.C_CIANO}"
             "====================================================="
             f"{self.RESET}"
         )
 
         print(
-            f"{self.C_RED}[+] Dev:{self.RESET} scxveryx"
+            f"{self.C_CIANO}[+] Dev:{self.RESET} vantathegod"
         )
 
         print(
-    f"{self.C_RED}[+] IP tracked:{self.RESET} "
+    f"{self.C_CIANO}[+] IP tracked:{self.RESET} "
     "Não disponível"
         )
 
         print(
-            f"{self.C_RED}[+] Dispositivo:{self.RESET} "
+            f"{self.C_CIANO}[+] Dispositivo:{self.RESET} "
             f"{dispositivo}"
         )
 
         print(
-            f"{self.C_RED}[+] OS Target:{self.RESET} "
+            f"{self.C_CIANO}[+] OS Target:{self.RESET} "
             "Android / Terminal"
         )
 
         print(
-            f"{self.C_RED}"
+            f"{self.C_CIANO}"
             "====================================================="
             f"{self.RESET}\n"
         )
@@ -211,14 +200,14 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
 
         if not alvo_limpo:
             print(
-                f"{self.C_RED}"
+                f"{self.C_CIANO}"
                 "[-] Endereço do alvo é inválido."
                 f"{self.RESET}"
             )
             return
 
         print(
-            f"\n{self.C_RED}[*] [SCAN] "
+            f"\n{self.C_CIANO}[*] [SCAN] "
             f"Iniciando varredura em: "
             f"{self.C_WHITE}{alvo_limpo}{self.RESET}\n"
         )
@@ -245,26 +234,26 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
             ip = socket.gethostbyname(alvo_limpo)
 
             print(
-                f"{self.C_RED}[+] Target IP: "
+                f"{self.C_CIANO}[+] Target IP: "
                 f"{self.C_WHITE}{ip}{self.RESET}\n"
             )
 
         except socket.gaierror:
             print(
-                f"{self.C_RED}"
+                f"{self.C_CIANO}"
                 "[-] Falha ao resolver o endereço IP do alvo."
                 f"{self.RESET}"
             )
             return
 
         print(
-            f"{self.C_RED}"
+            f"{self.C_CIANO}"
             "PORTA     SERVIÇO      STATUS"
             f"{self.RESET}"
         )
 
         print(
-            f"{self.C_RED}"
+            f"{self.C_CIANO}"
             "-----------------------------------"
             f"{self.RESET}"
         )
@@ -295,7 +284,7 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
                     )
                 else:
                     status = (
-                        f"{self.C_RED}"
+                        f"{self.C_CIANO}"
                         "[ FECHADA ]"
                         f"{self.RESET}"
                     )
@@ -308,7 +297,7 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
 
             except KeyboardInterrupt:
                 print(
-                    f"\n{self.C_YELLOW}"
+                    f"\n{self.C_CIANO}"
                     "[!] Scan interrompido."
                     f"{self.RESET}"
                 )
@@ -318,7 +307,7 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
                 print(
                     f"{porta:<9} "
                     f"{'DESCONHECIDO':<12} "
-                    f"{self.C_YELLOW}[ ERRO ]"
+                    f"{self.C_CIANO}[ ERRO ]"
                     f"{self.RESET}"
                 )
 
@@ -328,14 +317,14 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
 
         if not alvo_limpo:
             print(
-                f"{self.C_RED}"
+                f"{self.C_CIANO}"
                 "[-] Endereço do alvo é inválido."
                 f"{self.RESET}"
             )
             return
 
         print(
-            f"\n{self.C_RED}"
+            f"\n{self.C_CIANO}"
             "[*] [PING] Resolvendo endereço IP..."
             f"{self.RESET}\n"
         )
@@ -344,14 +333,14 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
             ip = socket.gethostbyname(alvo_limpo)
 
             print(
-                f" {self.C_GREEN}[+] HOST RESOLVIDO:"
+                f" {self.C_CIANO}[+] HOST RESOLVIDO:"
                 f"{self.RESET} {alvo_limpo} "
-                f"{self.C_GRAY}-->{self.RESET} {ip}"
+                f"{self.C_CIANO}-->{self.RESET} {ip}"
             )
 
         except socket.gaierror:
             print(
-                f" {self.C_RED}"
+                f" {self.C_CIANO}"
                 "[-] HOST INEXISTENTE OU NÃO RESOLVIDO"
                 f"{self.RESET}"
             )
@@ -362,14 +351,14 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
 
         if not alvo_limpo:
             print(
-                f"{self.C_RED}"
+                f"{self.C_CIANO}"
                 "[-] Endereço do alvo é inválido."
                 f"{self.RESET}"
             )
             return
 
         print(
-            f"\n{self.C_RED}"
+            f"\n{self.C_CIANO}"
             "[*] [HTTP RECON] "
             "Analisando Headers da Aplicação..."
             f"{self.RESET}\n"
@@ -403,27 +392,27 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
                     headers = res.info()
 
                     print(
-                        f"{self.C_RED}[+] URL:{self.RESET} "
+                        f"{self.C_CIANO}[+] URL:{self.RESET} "
                         f"{url}"
                     )
 
                     print(
-                        f"{self.C_RED}[+] Status:{self.RESET} "
+                        f"{self.C_CIANO}[+] Status:{self.RESET} "
                         f"{res.status}"
                     )
 
                     print(
-                        f"{self.C_RED}[+] Server:{self.RESET} "
+                        f"{self.C_CIANO}[+] Server:{self.RESET} "
                         f"{headers.get('Server', 'Desconhecido')}"
                     )
 
                     print(
-                        f"{self.C_RED}[+] Powered-By:{self.RESET} "
+                        f"{self.C_CIANO}[+] Powered-By:{self.RESET} "
                         f"{headers.get('X-Powered-By', 'Não detectado')}"
                     )
 
                     print(
-                        f"{self.C_RED}[+] Content-Type:{self.RESET} "
+                        f"{self.C_CIANO}[+] Content-Type:{self.RESET} "
                         f"{headers.get('Content-Type', 'Não informado')}"
                     )
 
@@ -431,7 +420,7 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
 
             except urllib.error.HTTPError as e:
                 print(
-                    f"{self.C_YELLOW}"
+                    f"{self.C_CIANO}"
                     f"[!] {url} retornou HTTP {e.code}"
                     f"{self.RESET}"
                 )
@@ -441,14 +430,14 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
 
             except Exception as e:
                 print(
-                    f"{self.C_RED}"
+                    f"{self.C_CIANO}"
                     f"[-] Erro na requisição: {e}"
                     f"{self.RESET}"
                 )
                 return
 
         print(
-            f"{self.C_RED}"
+            f"{self.C_CIANO}"
             "[-] Não foi possível conectar ao servidor."
             f"{self.RESET}"
         )
@@ -456,7 +445,7 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
     def scan_rede_local(self):
         """Procura dispositivos na rede local através da porta 80."""
         print(
-            f"\n{self.C_RED}"
+            f"\n{self.C_CIANO}"
             "[*] [LAN SCAN] "
             "Varrendo a rede Wi-Fi local..."
             f"{self.RESET}\n"
@@ -482,13 +471,13 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
             ip_local = ""
 
         print(
-            f"{self.C_RED}"
+            f"{self.C_CIANO}"
             "IP DISPOSITIVO            STATUS           INFO"
             f"{self.RESET}"
         )
 
         print(
-            f"{self.C_RED}"
+            f"{self.C_CIANO}"
             "-----------------------------------------------------"
             f"{self.RESET}"
         )
@@ -513,20 +502,20 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
                 if resultado == 0 or ip_teste == ip_local:
                     if ip_teste == ip_local:
                         info = (
-                            f"{self.C_GREEN}"
+                            f"{self.C_CIANO}"
                             "( Seu Celular )"
                             f"{self.RESET}"
                         )
                     else:
                         info = (
-                            f"{self.C_GRAY}"
+                            f"{self.C_CIANO}"
                             "( Dispositivo na Rede )"
                             f"{self.RESET}"
                         )
 
                     print(
                         f"{ip_teste:<25} "
-                        f"{self.C_GREEN}[ ATIVO ]"
+                        f"{self.C_CIANO}[ ATIVO ]"
                         f"{self.RESET}      "
                         f"{info}"
                     )
@@ -535,7 +524,7 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
 
             except KeyboardInterrupt:
                 print(
-                    f"\n{self.C_YELLOW}"
+                    f"\n{self.C_CIANO}"
                     "[!] Varredura cancelada."
                     f"{self.RESET}"
                 )
@@ -545,13 +534,13 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
                 pass
 
         print(
-            f"{self.C_RED}"
+            f"{self.C_CIANO}"
             "-----------------------------------------------------"
             f"{self.RESET}"
         )
 
         print(
-            f"\n{self.C_GREEN}"
+            f"\n{self.C_CIANO}"
             f"[+] Concluído! "
             f"Dispositivos encontrados: {encontrados}"
             f"{self.RESET}"
@@ -566,59 +555,59 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
             self.banner()
 
             print(
-                f"{self.C_RED}"
-                "┌── ( kali㉿scxveryx ) -[~/painel]"
+                f"{self.C_CIANO}"
+                "┌── ( kali㉿vantathegod ) -[~/painel]"
                 f"{self.RESET}"
             )
 
             print(
-                f"{self.C_RED}"
-                "└─► Opções disponíveis:"
+                f"{self.C_CIANO}"
+                "└─► DIGA OQUE QUERES, FILHO DE DEUS:"
                 f"{self.RESET}\n"
             )
 
             print(
-                f"  {self.C_RED}[1]{self.RESET} "
-                "Port Scanner (TCP Nativo)"
+                f"  {self.C_CIANO}[1]{self.RESET} "
+                "PORT SCANNER (TCP Nativo)"
             )
 
             print(
-                f"  {self.C_RED}[2]{self.RESET} "
-                "Resolver IP / DNS"
+                f"  {self.C_CIANO}[2]{self.RESET} "
+                "RESOLVER IP / DNS"
             )
 
             print(
-                f"  {self.C_RED}[3]{self.RESET} "
-                "Web Banner Grabbing (HTTP)"
+                f"  {self.C_CIANO}[3]{self.RESET} "
+                "WEB BANNER GRABBING (HTTP)"
             )
 
             print(
-                f"  {self.C_RED}[4]{self.RESET} "
-                "Dispositivos na Rede Local (LAN Scan)"
+                f"  {self.C_CIANO}[4]{self.RESET} "
+                "DISPOSITIVOS NA REDE LOCAL (LAN Scan)"
             )
 
             print(
-                f"  {self.C_RED}[5]{self.RESET} "
-                "Limpar Console"
+                f"  {self.C_CIANO}[5]{self.RESET} "
+                "LIMPAR CONSOLE"
             )
 
             print(
-                f"  {self.C_RED}[0]{self.RESET} "
-                "Encerrar Painel"
+                f"  {self.C_CIANO}[0]{self.RESET} "
+                "ENCERRAR PAINEL"
             )
 
             print()
 
             try:
                 opcao = input(
-                    f"{self.C_RED}"
-                    "┌── ( kali㉿scxveryx ) -[menu]\n"
+                    f"{self.C_CIANO}"
+                    "┌── ( kali㉿vantathegod ) -[menu]\n"
                     f"└─$ {self.RESET}"
                 ).strip()
 
             except KeyboardInterrupt:
                 print(
-                    f"\n\n{self.C_RED}"
+                    f"\n\n{self.C_CIANO}"
                     "[!] Encerrando... Até mais, scxveryx!"
                     f"{self.RESET}"
                 )
@@ -626,7 +615,7 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
 
             if opcao == "0":
                 print(
-                    f"\n{self.C_RED}"
+                    f"\n{self.C_CIANO}"
                     "[!] Encerrando... Até mais, scxveryx!"
                     f"{self.RESET}"
                 )
@@ -639,14 +628,14 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
                 self.scan_rede_local()
 
                 input(
-                    f"\n{self.C_RED}"
+                    f"\n{self.C_CIANO}"
                     "[Pressione ENTER para retornar ao menu]"
                     f"{self.RESET}"
                 )
 
             elif opcao in ["1", "2", "3"]:
                 alvo = input(
-                    f"\n{self.C_RED}"
+                    f"\n{self.C_CIANO}"
                     "[?] Digite o Alvo "
                     "(ex: site.com ou IP): "
                     f"{self.RESET}"
@@ -665,20 +654,20 @@ RRF $5"   8$$$$$$$$$$$$$$$$$$                E?&9$$FE
                     self.obter_headers(alvo)
 
                 input(
-                    f"\n{self.C_RED}"
+                    f"\n{self.C_CIANO}"
                     "[Pressione ENTER para retornar ao menu]"
                     f"{self.RESET}"
                 )
 
             else:
                 print(
-                    f"\n{self.C_RED}"
+                    f"\n{self.C_CIANO}"
                     "[X] Opção inválida."
                     f"{self.RESET}"
                 )
 
                 input(
-                    f"\n{self.C_RED}"
+                    f"\n{self.C_CIANO}"
                     "[Pressione ENTER para continuar]"
                     f"{self.RESET}"
                 )
