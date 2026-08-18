@@ -673,7 +673,7 @@ class Painel1:
                 )
 
 
-if __name__ == "__main__":
+if __name__ == "__olho__":
     painel = Painel1()
     painel.abrir_interface()
         
