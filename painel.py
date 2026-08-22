@@ -10,15 +10,15 @@ import subprocess
 
 class Painel1:
     def __init__(self):
-        # Cores ANSI - Estilo Kali Linux
-        self.C_KALI = "\033[38;5;33m"
-        self.C_RED = "\033[38;5;196m"
-        self.C_GREEN = "\033[38;5;46m"
-        self.C_YELLOW = "\033[38;5;226m"
-        self.C_GRAY = "\033[38;5;242m"
-        self.C_WHITE = "\033[1;37m"
-        self.C_PINK = "\033[38;5;206m"
-        self.RESET = "\033[0m"
+       # Cores ANSI - Tema Verde
+self.C_KALI = "\033[38;5;46m"      # Verde vivo
+self.C_RED = "\033[38;5;82m"       # Verde claro
+self.C_GREEN = "\033[38;5;46m"     # Verde
+self.C_YELLOW = "\033[38;5;118m"   # Verde-amarelado
+self.C_GRAY = "\033[38;5;70m"      # Verde acinzentado
+self.C_WHITE = "\033[1;32m"        # Verde claro/negrito
+self.C_PINK = "\033[38;5;48m"      # Verde água
+self.RESET = "\033[0m"
 
         self.SENHA_CORRETA = "203159"
 
