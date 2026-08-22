@@ -3,22 +3,15 @@ import socket
 import urllib.request
 import urllib.error
 from urllib.parse import urlparse
-import sys
 import time
 import subprocess
 
 
 class Painel1:
     def __init__(self):
-       # Cores ANSI - Tema Verde
-self.C_KALI = "\033[38;5;46m"      # Verde vivo
-self.C_RED = "\033[38;5;82m"       # Verde claro
-self.C_GREEN = "\033[38;5;46m"     # Verde
-self.C_YELLOW = "\033[38;5;118m"   # Verde-amarelado
-self.C_GRAY = "\033[38;5;70m"      # Verde acinzentado
-self.C_WHITE = "\033[1;32m"        # Verde claro/negrito
-self.C_PINK = "\033[38;5;48m"      # Verde água
-self.RESET = "\033[0m"
+        # Única cor do painel: verde
+        self.C_GREEN = "\033[38;5;46m"
+        self.RESET = "\033[0m"
 
         self.SENHA_CORRETA = "203159"
 
@@ -55,7 +48,7 @@ self.RESET = "\033[0m"
         try:
             resultado = os.system(
                 f'termux-tts-speak -l pt "{mensagem}" '
-                '>/dev/null 2>&1'
+                ">/dev/null 2>&1"
             )
 
             if resultado != 0:
@@ -82,15 +75,15 @@ self.RESET = "\033[0m"
             self.banner()
 
             print(
-                f"{self.C_WHITE}┌──("
-                f"{self.C_RED}kali🔒vbought"
-                f"{self.C_WHITE})-["
-                f"{self.C_KALI}login"
-                f"{self.C_WHITE}]{self.RESET}"
+                f"{self.C_GREEN}┌──("
+                f"{self.C_GREEN}kali🔒vbought"
+                f"{self.C_GREEN})-["
+                f"{self.C_GREEN}login"
+                f"{self.C_GREEN}]{self.RESET}"
             )
 
             senha = input(
-                f"{self.C_WHITE}└─{self.C_GREEN}$ "
+                f"{self.C_GREEN}└─$ "
                 f"{self.RESET}Digite a senha de acesso: "
             ).strip()
 
@@ -109,8 +102,8 @@ self.RESET = "\033[0m"
             restantes = max_tentativas - tentativas
 
             print(
-                f"\n{self.C_RED}[!] Senha incorreta! "
-                f"Tentativas restantes: {restantes}"
+                f"\n{self.C_GREEN}"
+                f"[!] Senha incorreta! Tentativas restantes: {restantes}"
                 f"{self.RESET}"
             )
 
@@ -119,7 +112,7 @@ self.RESET = "\033[0m"
         self.limpar_console()
 
         print(
-            f"\n{self.C_RED}"
+            f"\n{self.C_GREEN}"
             "=====================================================\n"
             " [!] ALERTA DE SEGURANÇA: ACESSO BLOQUEADO\n"
             " [!] Você errou a senha 3 vezes.\n"
@@ -158,32 +151,32 @@ self.RESET = "\033[0m"
          ................................
 """
 
-        print(f"{self.C_KALI}{arte}{self.RESET}")
+        print(f"{self.C_GREEN}{arte}{self.RESET}")
 
         print(
-            f"{self.C_GRAY}"
+            f"{self.C_GREEN}"
             "====================================================="
             f"{self.RESET}"
         )
 
         print(
-            f" {self.C_GRAY}[+] {self.C_GRAY} Dev:"
+            f"{self.C_GREEN}[+] Dev:"
             f"{self.RESET} {self.C_GREEN}vbought{self.RESET}"
         )
 
         print(
-            f" {self.C_GRAY}[+] Dispositivo:"
-            f"{self.RESET} {self.C_YELLOW}"
+            f"{self.C_GREEN}[+] Dispositivo:"
+            f"{self.RESET} {self.C_GREEN}"
             f"{dispositivo}{self.RESET}"
         )
 
         print(
-            f" {self.C_GRAY}[+] Ambiente:"
-            f"{self.RESET} Linux / Android"
+            f"{self.C_GREEN}[+] Ambiente:"
+            f"{self.RESET} {self.C_GREEN}Linux / Android{self.RESET}"
         )
 
         print(
-            f"{self.C_GRAY}"
+            f"{self.C_GREEN}"
             "====================================================="
             f"{self.RESET}\n"
         )
@@ -201,7 +194,6 @@ self.RESET = "\033[0m"
         try:
             parsed = urlparse(alvo)
             host = parsed.hostname
-
             return host if host else ""
 
         except Exception:
@@ -213,16 +205,16 @@ self.RESET = "\033[0m"
 
         if not alvo_limpo:
             print(
-                f"{self.C_RED}"
+                f"{self.C_GREEN}"
                 "[-] Endereço do alvo é inválido."
                 f"{self.RESET}"
             )
             return
 
         print(
-            f"\n{self.C_KALI}[*] [SCAN] "
+            f"\n{self.C_GREEN}[*] [SCAN] "
             f"Iniciando verificação em: "
-            f"{self.C_WHITE}{alvo_limpo}{self.RESET}\n"
+            f"{self.C_GREEN}{alvo_limpo}{self.RESET}\n"
         )
 
         portas = [
@@ -240,7 +232,7 @@ self.RESET = "\033[0m"
 
         except socket.gaierror:
             print(
-                f"{self.C_RED}"
+                f"{self.C_GREEN}"
                 "[-] Falha ao resolver o endereço."
                 f"{self.RESET}"
             )
@@ -260,13 +252,13 @@ self.RESET = "\033[0m"
         }
 
         print(
-            f"{self.C_GRAY}"
+            f"{self.C_GREEN}"
             "PORTA     SERVIÇO      STATUS"
             f"{self.RESET}"
         )
 
         print(
-            f"{self.C_GRAY}"
+            f"{self.C_GREEN}"
             "-----------------------------------"
             f"{self.RESET}"
         )
@@ -284,30 +276,27 @@ self.RESET = "\033[0m"
                 ) as sock:
 
                     sock.settimeout(0.6)
+
                     resultado = sock.connect_ex(
                         (ip, porta)
                     )
 
                 if resultado == 0:
-                    print(
-                        f"{porta:<9} "
-                        f"{nome_serv:<12} "
-                        f"{self.C_GREEN}"
-                        "[ ABERTA ]"
-                        f"{self.RESET}"
-                    )
+                    status = "[ ABERTA ]"
                 else:
-                    print(
-                        f"{porta:<9} "
-                        f"{nome_serv:<12} "
-                        f"{self.C_RED}"
-                        "[ FECHADA ]"
-                        f"{self.RESET}"
-                    )
+                    status = "[ FECHADA ]"
+
+                print(
+                    f"{porta:<9} "
+                    f"{nome_serv:<12} "
+                    f"{self.C_GREEN}"
+                    f"{status}"
+                    f"{self.RESET}"
+                )
 
             except KeyboardInterrupt:
                 print(
-                    f"\n{self.C_YELLOW}"
+                    f"\n{self.C_GREEN}"
                     "[!] Scan interrompido."
                     f"{self.RESET}"
                 )
@@ -317,7 +306,7 @@ self.RESET = "\033[0m"
                 print(
                     f"{porta:<9} "
                     f"{nome_serv:<12} "
-                    f"{self.C_YELLOW}"
+                    f"{self.C_GREEN}"
                     f"[ ERRO: {erro} ]"
                     f"{self.RESET}"
                 )
@@ -328,14 +317,14 @@ self.RESET = "\033[0m"
 
         if not alvo_limpo:
             print(
-                f"{self.C_RED}"
+                f"{self.C_GREEN}"
                 "[-] Endereço inválido."
                 f"{self.RESET}"
             )
             return
 
         print(
-            f"\n{self.C_KALI}"
+            f"\n{self.C_GREEN}"
             "[*] [DNS] Resolvendo endereço IP..."
             f"{self.RESET}\n"
         )
@@ -346,12 +335,12 @@ self.RESET = "\033[0m"
             print(
                 f"{self.C_GREEN}[+] HOST:"
                 f"{self.RESET} {alvo_limpo} "
-                f"{self.C_GRAY}-->{self.RESET} {ip}"
+                f"{self.C_GREEN}-->{self.RESET} {ip}"
             )
 
         except socket.gaierror:
             print(
-                f"{self.C_RED}"
+                f"{self.C_GREEN}"
                 "[-] Host inexistente ou não resolvido."
                 f"{self.RESET}"
             )
@@ -362,14 +351,14 @@ self.RESET = "\033[0m"
 
         if not alvo_limpo:
             print(
-                f"{self.C_RED}"
+                f"{self.C_GREEN}"
                 "[-] Endereço inválido."
                 f"{self.RESET}"
             )
             return
 
         print(
-            f"\n{self.C_KALI}"
+            f"\n{self.C_GREEN}"
             "[*] [HTTP RECON] Obtendo headers..."
             f"{self.RESET}\n"
         )
@@ -411,21 +400,21 @@ self.RESET = "\033[0m"
 
         except urllib.error.HTTPError as erro:
             print(
-                f"{self.C_YELLOW}"
+                f"{self.C_GREEN}"
                 f"[!] Código HTTP: {erro.code}"
                 f"{self.RESET}"
             )
 
         except urllib.error.URLError as erro:
             print(
-                f"{self.C_RED}"
+                f"{self.C_GREEN}"
                 f"[-] Erro de conexão: {erro.reason}"
                 f"{self.RESET}"
             )
 
         except Exception as erro:
             print(
-                f"{self.C_RED}"
+                f"{self.C_GREEN}"
                 f"[-] Erro: {erro}"
                 f"{self.RESET}"
             )
@@ -433,7 +422,7 @@ self.RESET = "\033[0m"
     def scan_rede_local(self):
         """Verifica dispositivos da rede local."""
         print(
-            f"\n{self.C_KALI}"
+            f"\n{self.C_GREEN}"
             "[*] [LAN SCAN] Verificando rede local..."
             f"{self.RESET}\n"
         )
@@ -456,13 +445,13 @@ self.RESET = "\033[0m"
             ip_local = ""
 
         print(
-            f"{self.C_GRAY}"
+            f"{self.C_GREEN}"
             "IP DISPOSITIVO       STATUS"
             f"{self.RESET}"
         )
 
         print(
-            f"{self.C_GRAY}"
+            f"{self.C_GREEN}"
             "--------------------------------"
             f"{self.RESET}"
         )
@@ -493,7 +482,7 @@ self.RESET = "\033[0m"
                     print(
                         f"{ip_teste:<20} "
                         f"{self.C_GREEN}"
-                        f"[ ATIVO ]"
+                        "[ ATIVO ]"
                         f"{self.RESET} "
                         f"{info}"
                     )
@@ -502,7 +491,7 @@ self.RESET = "\033[0m"
 
             except KeyboardInterrupt:
                 print(
-                    f"\n{self.C_YELLOW}"
+                    f"\n{self.C_GREEN}"
                     "[!] Varredura cancelada."
                     f"{self.RESET}"
                 )
@@ -512,7 +501,7 @@ self.RESET = "\033[0m"
                 pass
 
         print(
-            f"{self.C_GRAY}"
+            f"{self.C_GREEN}"
             "--------------------------------"
             f"{self.RESET}"
         )
@@ -533,63 +522,63 @@ self.RESET = "\033[0m"
             self.banner()
 
             print(
-                f"{self.C_WHITE}┌──("
-                f"{self.C_KALI}kali㉿vbought-termux"
-                f"{self.C_WHITE})-["
-                f"{self.C_GRAY}~/painel"
-                f"{self.C_WHITE}]{self.RESET}"
+                f"{self.C_GREEN}┌──("
+                f"{self.C_GREEN}kali㉿vbought-termux"
+                f"{self.C_GREEN})-["
+                f"{self.C_GREEN}~/painel"
+                f"{self.C_GREEN}]{self.RESET}"
             )
 
             print(
-                f"{self.C_WHITE}"
+                f"{self.C_GREEN}"
                 "└─► Opções disponíveis:"
                 f"{self.RESET}\n"
             )
 
             print(
-                f"  {self.C_KALI}[1]{self.RESET} "
+                f"  {self.C_GREEN}[1]{self.RESET} "
                 "Port Scanner TCP"
             )
 
             print(
-                f"  {self.C_KALI}[2]{self.RESET} "
+                f"  {self.C_GREEN}[2]{self.RESET} "
                 "Resolver IP / DNS"
             )
 
             print(
-                f"  {self.C_KALI}[3]{self.RESET} "
+                f"  {self.C_GREEN}[3]{self.RESET} "
                 "Web Banner Grabbing"
             )
 
             print(
-                f"  {self.C_KALI}[4]{self.RESET} "
+                f"  {self.C_GREEN}[4]{self.RESET} "
                 "Dispositivos na Rede Local"
             )
 
             print(
-                f"  {self.C_KALI}[5]{self.RESET} "
+                f"  {self.C_GREEN}[5]{self.RESET} "
                 "Limpar Console"
             )
 
             print(
-                f"  {self.C_RED}[0]{self.RESET} "
+                f"  {self.C_GREEN}[0]{self.RESET} "
                 "Encerrar Painel\n"
             )
 
             try:
                 opcao = input(
-                    f"{self.C_WHITE}┌──("
-                    f"{self.C_KALI}kali㉿vbought"
-                    f"{self.C_WHITE})-["
-                    f"{self.C_RED}menu"
-                    f"{self.C_WHITE}]\n"
-                    f"└─{self.C_GREEN}$ "
+                    f"{self.C_GREEN}┌──("
+                    f"{self.C_GREEN}kali㉿vbought"
+                    f"{self.C_GREEN})-["
+                    f"{self.C_GREEN}menu"
+                    f"{self.C_GREEN}]\n"
+                    f"└─$ "
                     f"{self.RESET}"
                 ).strip()
 
             except KeyboardInterrupt:
                 print(
-                    f"\n\n{self.C_RED}"
+                    f"\n\n{self.C_GREEN}"
                     "[!] Encerrando..."
                     f"{self.RESET}"
                 )
@@ -597,7 +586,7 @@ self.RESET = "\033[0m"
 
             if opcao == "0":
                 print(
-                    f"\n{self.C_RED}"
+                    f"\n{self.C_GREEN}"
                     "[!] Encerrando..."
                     f"{self.RESET}"
                 )
@@ -610,14 +599,14 @@ self.RESET = "\033[0m"
                 self.scan_rede_local()
 
                 input(
-                    f"\n{self.C_GRAY}"
+                    f"\n{self.C_GREEN}"
                     "[Pressione ENTER para retornar]"
                     f"{self.RESET}"
                 )
 
             elif opcao in ("1", "2", "3"):
                 alvo = input(
-                    f"\n{self.C_YELLOW}"
+                    f"\n{self.C_GREEN}"
                     "[?] Digite o host ou IP: "
                     f"{self.RESET}"
                 ).strip()
@@ -635,20 +624,20 @@ self.RESET = "\033[0m"
                     self.obter_headers(alvo)
 
                 input(
-                    f"\n{self.C_GRAY}"
+                    f"\n{self.C_GREEN}"
                     "[Pressione ENTER para retornar]"
                     f"{self.RESET}"
                 )
 
             else:
                 print(
-                    f"\n{self.C_RED}"
+                    f"\n{self.C_GREEN}"
                     "[X] Opção inválida."
                     f"{self.RESET}"
                 )
 
                 input(
-                    f"\n{self.C_GRAY}"
+                    f"\n{self.C_GREEN}"
                     "[Pressione ENTER para continuar]"
                     f"{self.RESET}"
                 )
