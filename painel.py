@@ -1,681 +1,171 @@
 import os
-import socket
+import time
 import urllib.request
 import urllib.error
-from urllib.parse import urlparse
-import sys
-import time
-import subprocess
-import ssl
+from collections import deque
+
+# ==========================================
+# CONFIGURAÇÃO
+# ==========================================
+
+URL = "http://127.0.0.1:8000/"
+INTERVALO = 1
+MAX_RPS = 5
+
+historico = deque(maxlen=15)
 
 
-class Painel1:
-    def __init__(self):
-        # Cores ANSI - Estilo Kali Linux
-        self.C_CIANO = "\033[38;5;33m"
-        self.C_KALI = "\033[38;5;33m"
-        self.C_RED = "\033[38;5;196m"
-        self.C_GREEN = "\033[38;5;46m"
-        self.C_YELLOW = "\033[38;5;226m"
-        self.C_GRAY = "\033[38;5;242m"
-        self.C_WHITE = "\033[1;37m"
-        self.C_PINK = "\033[38;5;206m"
-        self.RESET = "\033[0m"
+# ==========================================
+# CORES
+# ==========================================
 
-        # Senha padrão do painel
-        self.SENHA_CORRETA = "203159"
+CIANO = "\033[96m"
+VERDE = "\033[92m"
+AMARELO = "\033[93m"
+VERMELHO = "\033[91m"
+BRANCO = "\033[97m"
+RESET = "\033[0m"
 
-    def obter_marca_celular(self):
-        """Obtém a marca e o modelo do celular via comandos do Android."""
-        try:
-            marca = subprocess.check_output(
-                "getprop ro.product.brand",
-                shell=True,
-                stderr=subprocess.DEVNULL
-            ).decode().strip().capitalize()
 
-            modelo = subprocess.check_output(
-                "getprop ro.product.model",
-                shell=True,
-                stderr=subprocess.DEVNULL
-            ).decode().strip()
+# ==========================================
+# TERMINAL
+# ==========================================
 
-            if marca and modelo:
-                return f"{marca} ({modelo})"
-            elif marca:
-                return marca
-            else:
-                return "Android Device"
+def limpar():
+    os.system("cls" if os.name == "nt" else "clear")
 
-        except Exception:
-            return "Android Device"
 
-    def tocar_som_entrada(self):
-        """Saudação em voz compatível com Termux."""
-        mensagem = "Olá Eraz! Acesso concedido. Bem-vindo ao seu painel."
+# ==========================================
+# TESTE REAL
+# ==========================================
 
-        resultado = os.system(
-            f"termux-tts-speak -l pt '{mensagem}' >/dev/null 2>&1"
-        )
+def testar_servidor():
+    inicio = time.perf_counter()
 
-        if resultado != 0:
-            try:
-                import pyttsx3
+    try:
+        with urllib.request.urlopen(URL, timeout=3) as resposta:
+            resposta.read(1024)
 
-                engine = pyttsx3.init()
-                engine.say(mensagem)
-                engine.runAndWait()
+        latencia = (time.perf_counter() - inicio) * 1000
 
-            except Exception:
-                print("\a")
+        return True, latencia
 
-    def autenticar(self):
-        """Sistema de login com limite de 3 tentativas."""
-        tentativas = 0
-        max_tentativas = 3
+    except (urllib.error.URLError, TimeoutError):
+        return False, None
 
-        while tentativas < max_tentativas:
-            os.system("clear")
-            self.banner()
 
-            print(
-                f"{self.C_CIANO}┌── ( kali㉿scxveryx ) -[login]{self.RESET}"
-            )
+# ==========================================
+# GRÁFICO
+# ==========================================
 
-            senha = input(
-                f"{self.C_CIANO}└─$ {self.RESET}"
-                "Digite a senha de acesso: "
-            ).strip()
+def mostrar_grafico():
 
-            if senha == self.SENHA_CORRETA:
-                print(
-                    f"\n{self.C_CIANO}[+] Acesso concedido! "
-                    f"Carregando o painel...{self.RESET}"
-                )
+    print(f"{CIANO}LATÊNCIA — HISTÓRICO{RESET}")
+    print()
 
-                self.tocar_som_entrada()
-                time.sleep(1.5)
-                return True
+    for valor in historico:
 
-            tentativas += 1
-            restantes = max_tentativas - tentativas
+        tamanho = min(int(valor / 5), 45)
 
-            print(
-                f"\n{self.C_RED}[!] Senha incorreta! "
-                f"Tentativas restantes: {restantes}{self.RESET}"
-            )
-
-            time.sleep(1.5)
-
-        os.system("clear")
+        if valor < 100:
+            cor = VERDE
+        elif valor < 300:
+            cor = AMARELO
+        else:
+            cor = VERMELHO
 
         print(
-            f"\n{self.C_RED}"
-            "====================================================="
-        )
-        print(" [!] ALERTA DE SEGURANÇA: TENTATIVA DE INVASÃO DETECTADA")
-        print(" [!] Acesso bloqueado! Você errou a senha 3 vezes.")
-        print(
-            "====================================================="
-            f"{self.RESET}\n"
+            f"{valor:6.1f} ms | "
+            f"{cor}{'#' * tamanho}{RESET}"
         )
 
-        sys.exit(0)
 
-    def banner(self):
-        """Cabeçalho em ASCII Art."""
-        dispositivo = self.obter_marca_celular()
+# ==========================================
+# PAINEL
+# ==========================================
 
-        arte = f"""
-{self.C_CIANO}
-          ....               ..                            .x+=:.                                                 ..      s                   .x+=:.   
-    .x~X88888Hx.     x .d88"    .uef^"                  z`    ^%                                          x .d88"      :8                  z`    ^%  
-   H8X 888888888h.    5888R   :d88E              u.        .   <k           u.                x.    .      5888R      .88           u.        .   <k 
-  8888:`*888888888:   '888R   `888E        ...ue888b     .@8Ned8"     ...ue888b        .    .@88k  z88u    '888R     :888ooo  ...ue888b     .@8Ned8" 
-  88888:        `%8    888R    888E .z8k   888R Y888r  .@^%8888"      888R Y888r  .udR88N  ~"8888 ^8888     888R   -*8888888  888R Y888r  .@^%8888"  
-. `88888          ?>   888R    888E~?888L  888R I888> x88:  `)8b.     888R I888> <888'888k   8888  888R     888R     8888     888R I888> x88:  `)8b. 
-`. ?888%           X   888R    888E  888E  888R I888> 8888N=*8888     888R I888> 9888 'Y"    8888  888R     888R     8888     888R I888> 8888N=*8888 
-  ~*??.            >   888R    888E  888E  888R I888>  %8"    R88     888R I888> 9888        8888  888R     888R     8888     888R I888>  %8"    R88 
- .x88888h.        <    888R    888E  888E u8888cJ888    @8Wou 9%     u8888cJ888  9888        8888 ,888B .   888R    .8888Lu= u8888cJ888    @8Wou 9%  
-:  x8888888x..  .x    .888B .  888E  888E  "*888*P"   .888888P`       "*888*P"   ?8888u../  "8888Y 8888"   .888B .  ^%888*    "*888*P"   .888888P`   
-`    `*888888888"     ^*888%  m888N= 888>    'Y"      `   ^"F           'Y"       "8888P'    `Y"   'YP     ^*888%     'Y"       'Y"      `   ^"F     
-        ""***""         "%     `Y"   888                                            "P'                      "%                                      
-                                    J88"                                                                                                             
-                                    @%                                                                                                               
-                                  :"                                                                                                                 
-{self.RESET}
-"""
+def painel(ok, latencia):
 
-        print(arte)
+    limpar()
 
+    print(CIANO + "=" * 60 + RESET)
+    print(CIANO + "          PAINEL DE MONITORAMENTO" + RESET)
+    print(CINZA if False else "")
+    print(CIANO + "=" * 60 + RESET)
+
+    print()
+    print(f"{BRANCO}ALVO:{RESET} {URL}")
+    print(f"{BRANCO}LIMITE:{RESET} {MAX_RPS} teste/s")
+    print()
+
+    if ok:
         print(
-            f"{self.C_CIANO}"
-            "====================================================="
-            f"{self.RESET}"
+            VERDE +
+            "[✓] SERVIDOR ONLINE"
+            + RESET
         )
 
         print(
-            f"{self.C_CIANO}[+] Dev:{self.RESET} vantathegod"
+            f"{BRANCO}Latência:{RESET} "
+            f"{latencia:.1f} ms"
         )
 
+        historico.append(latencia)
+
+    else:
         print(
-            f"{self.C_CIANO}[+] IP tracked:{self.RESET} "
-            "Não disponível"
+            VERMELHO +
+            "[!] SERVIDOR INDISPONÍVEL"
+            + RESET
         )
 
-        print(
-            f"{self.C_CIANO}[+] Dispositivo:{self.RESET} "
-            f"{dispositivo}"
-        )
+    print()
 
-        print(
-            f"{self.C_CIANO}[+] OS Target:{self.RESET} "
-            "Android / Terminal"
-        )
+    if historico:
+        mostrar_grafico()
 
-        print(
-            f"{self.C_CIANO}"
-            "====================================================="
-            f"{self.RESET}\n"
-        )
+    print()
+    print(CIANO + "=" * 60 + RESET)
 
-    def limpar_alvo(self, alvo):
-        """Sanitiza e obtém o hostname de uma URL."""
-        alvo = alvo.strip()
 
-        if not alvo:
-            return ""
+# ==========================================
+# PRINCIPAL
+# ==========================================
 
-        if not alvo.startswith(("http://", "https://")):
-            alvo = "http://" + alvo
+def main():
 
-        try:
-            parsed = urlparse(alvo)
-            host = parsed.hostname
+    print(CIANO + "Monitor iniciado." + RESET)
+    print(f"Servidor: {URL}")
+    print()
 
-            if host:
-                return host
+    time.sleep(2)
 
-        except Exception:
-            pass
-
-        return ""
-
-    def scan_portas_nativo(self, alvo):
-        """Escaneia portas TCP comuns do alvo informado."""
-        alvo_limpo = self.limpar_alvo(alvo)
-
-        if not alvo_limpo:
-            print(
-                f"{self.C_CIANO}"
-                "[-] Endereço do alvo é inválido."
-                f"{self.RESET}"
-            )
-            return
-
-        print(
-            f"\n{self.C_CIANO}[*] [SCAN] "
-            f"Iniciando varredura em: "
-            f"{self.C_WHITE}{alvo_limpo}{self.RESET}\n"
-        )
-
-        portas = [
-            21, 22, 23, 25, 53,
-            80, 110, 443, 8080, 3306
-        ]
-
-        servicos = {
-            21: "FTP",
-            22: "SSH",
-            23: "TELNET",
-            25: "SMTP",
-            53: "DNS",
-            80: "HTTP",
-            110: "POP3",
-            443: "HTTPS",
-            8080: "PROXY",
-            3306: "MYSQL"
-        }
-
-        try:
-            ip = socket.gethostbyname(alvo_limpo)
-
-            print(
-                f"{self.C_CIANO}[+] Target IP: "
-                f"{self.C_WHITE}{ip}{self.RESET}\n"
-            )
-
-        except socket.gaierror:
-            print(
-                f"{self.C_CIANO}"
-                "[-] Falha ao resolver o endereço IP do alvo."
-                f"{self.RESET}"
-            )
-            return
-
-        print(
-            f"{self.C_CIANO}"
-            "PORTA     SERVIÇO      STATUS"
-            f"{self.RESET}"
-        )
-
-        print(
-            f"{self.C_CIANO}"
-            "-----------------------------------"
-            f"{self.RESET}"
-        )
-
-        for porta in portas:
-            try:
-                with socket.socket(
-                    socket.AF_INET,
-                    socket.SOCK_STREAM
-                ) as sock:
-
-                    sock.settimeout(0.6)
-                    resultado = sock.connect_ex((ip, porta))
-
-                nome_serv = servicos.get(
-                    porta,
-                    "DESCONHECIDO"
-                )
-
-                if resultado == 0:
-                    status = (
-                        f"{self.C_GREEN}"
-                        "[ ABERTA ]"
-                        f"{self.RESET}"
-                    )
-                else:
-                    status = (
-                        f"{self.C_CIANO}"
-                        "[ FECHADA ]"
-                        f"{self.RESET}"
-                    )
-
-                print(
-                    f"{porta:<9} "
-                    f"{nome_serv:<12} "
-                    f"{status}"
-                )
-
-            except KeyboardInterrupt:
-                print(
-                    f"\n{self.C_CIANO}"
-                    "[!] Scan interrompido."
-                    f"{self.RESET}"
-                )
-                break
-
-            except Exception:
-                print(
-                    f"{porta:<9} "
-                    f"{'DESCONHECIDO':<12} "
-                    f"{self.C_CIANO}[ ERRO ]"
-                    f"{self.RESET}"
-                )
-
-    def testar_ping(self, alvo):
-        """Resolve o IP do alvo."""
-        alvo_limpo = self.limpar_alvo(alvo)
-
-        if not alvo_limpo:
-            print(
-                f"{self.C_CIANO}"
-                "[-] Endereço do alvo é inválido."
-                f"{self.RESET}"
-            )
-            return
-
-        print(
-            f"\n{self.C_CIANO}"
-            "[*] [PING] Resolvendo endereço IP..."
-            f"{self.RESET}\n"
-        )
-
-        try:
-            ip = socket.gethostbyname(alvo_limpo)
-
-            print(
-                f" {self.C_CIANO}[+] HOST RESOLVIDO:"
-                f"{self.RESET} {alvo_limpo} "
-                f"{self.C_CIANO}-->{self.RESET} {ip}"
-            )
-
-        except socket.gaierror:
-            print(
-                f" {self.C_CIANO}"
-                "[-] HOST INEXISTENTE OU NÃO RESOLVIDO"
-                f"{self.RESET}"
-            )
-
-    def obter_headers(self, alvo):
-        """Captura cabeçalhos HTTP/HTTPS do servidor web."""
-        alvo_limpo = self.limpar_alvo(alvo)
-
-        if not alvo_limpo:
-            print(
-                f"{self.C_CIANO}"
-                "[-] Endereço do alvo é inválido."
-                f"{self.RESET}"
-            )
-            return
-
-        print(
-            f"\n{self.C_CIANO}"
-            "[*] [HTTP RECON] "
-            "Analisando Headers da Aplicação..."
-            f"{self.RESET}\n"
-        )
-
-        ctx = ssl.create_default_context()
-        ctx.check_hostname = False
-        ctx.verify_mode = ssl.CERT_NONE
-
-        urls = [
-            f"https://{alvo_limpo}",
-            f"http://{alvo_limpo}"
-        ]
-
-        for url in urls:
-            try:
-                req = urllib.request.Request(
-                    url,
-                    headers={
-                        "User-Agent": "Mozilla/5.0"
-                    }
-                )
-
-                with urllib.request.urlopen(
-                    req,
-                    timeout=4,
-                    context=ctx
-                ) as res:
-
-                    headers = res.info()
-
-                    print(
-                        f"{self.C_CIANO}[+] URL:{self.RESET} "
-                        f"{url}"
-                    )
-
-                    print(
-                        f"{self.C_CIANO}[+] Status:{self.RESET} "
-                        f"{res.status}"
-                    )
-
-                    print(
-                        f"{self.C_CIANO}[+] Server:{self.RESET} "
-                        f"{headers.get('Server', 'Desconhecido')}"
-                    )
-
-                    print(
-                        f"{self.C_CIANO}[+] Powered-By:{self.RESET} "
-                        f"{headers.get('X-Powered-By', 'Não detectado')}"
-                    )
-
-                    print(
-                        f"{self.C_CIANO}[+] Content-Type:{self.RESET} "
-                        f"{headers.get('Content-Type', 'Não informado')}"
-                    )
-
-                    return
-
-            except urllib.error.HTTPError as e:
-                print(
-                    f"{self.C_CIANO}"
-                    f"[!] {url} retornou HTTP {e.code}"
-                    f"{self.RESET}"
-                )
-
-            except urllib.error.URLError:
-                continue
-
-            except Exception as e:
-                print(
-                    f"{self.C_CIANO}"
-                    f"[-] Erro na requisição: {e}"
-                    f"{self.RESET}"
-                )
-                return
-
-        print(
-            f"{self.C_CIANO}"
-            "[-] Não foi possível conectar ao servidor."
-            f"{self.RESET}"
-        )
-
-    def scan_rede_local(self):
-        """Procura dispositivos na rede local através da porta 80."""
-        print(
-            f"\n{self.C_CIANO}"
-            "[*] [LAN SCAN] "
-            "Varrendo a rede Wi-Fi local..."
-            f"{self.RESET}\n"
-        )
-
-        try:
-            s = socket.socket(
-                socket.AF_INET,
-                socket.SOCK_DGRAM
-            )
-
-            s.connect(("8.8.8.8", 80))
-
-            ip_local = s.getsockname()[0]
-            s.close()
-
-            prefixo = ".".join(
-                ip_local.split(".")[:-1]
-            ) + "."
-
-        except Exception:
-            prefixo = "192.168.0."
-            ip_local = ""
-
-        print(
-            f"{self.C_CIANO}"
-            "IP DISPOSITIVO            STATUS           INFO"
-            f"{self.RESET}"
-        )
-
-        print(
-            f"{self.C_CIANO}"
-            "-----------------------------------------------------"
-            f"{self.RESET}"
-        )
-
-        encontrados = 0
-
-        for i in range(1, 255):
-            ip_teste = f"{prefixo}{i}"
-
-            try:
-                with socket.socket(
-                    socket.AF_INET,
-                    socket.SOCK_STREAM
-                ) as sock:
-
-                    sock.settimeout(0.04)
-                    resultado = sock.connect_ex(
-                        (ip_teste, 80)
-                    )
-
-                if resultado == 0 or ip_teste == ip_local:
-                    if ip_teste == ip_local:
-                        info = (
-                            f"{self.C_CIANO}"
-                            "( Seu Celular )"
-                            f"{self.RESET}"
-                        )
-                    else:
-                        info = (
-                            f"{self.C_CIANO}"
-                            "( Dispositivo na Rede )"
-                            f"{self.RESET}"
-                        )
-
-                    print(
-                        f"{ip_teste:<25} "
-                        f"{self.C_CIANO}[ ATIVO ]"
-                        f"{self.RESET}      "
-                        f"{info}"
-                    )
-
-                    encontrados += 1
-
-            except KeyboardInterrupt:
-                print(
-                    f"\n{self.C_CIANO}"
-                    "[!] Varredura cancelada."
-                    f"{self.RESET}"
-                )
-                break
-
-            except Exception:
-                pass
-
-        print(
-            f"{self.C_CIANO}"
-            "-----------------------------------------------------"
-            f"{self.RESET}"
-        )
-
-        print(
-            f"\n{self.C_CIANO}"
-            f"[+] Concluído! "
-            f"Dispositivos encontrados: {encontrados}"
-            f"{self.RESET}"
-        )
-
-    def abrir_interface(self):
-        """Inicia o painel principal."""
-        self.autenticar()
+    try:
 
         while True:
-            os.system("clear")
-            self.banner()
 
-            print(
-                f"{self.C_CIANO}"
-                "┌── ( kali㉿vantathegod ) -[~/painel]"
-                f"{self.RESET}"
-            )
+            inicio = time.perf_counter()
 
-            print(
-                f"{self.C_CIANO}"
-                "└─► DIGA OQUE QUERES, FILHO DE DEUS"
-                f"{self.RESET}\n"
-            )
+            ok, latencia = testar_servidor()
 
-            print(
-                f"  {self.C_CIANO}[1]{self.RESET} "
-                "PORT SCANNER (TCP Nativo)"
-            )
+            painel(ok, latencia)
 
-            print(
-                f"  {self.C_CIANO}[2]{self.RESET} "
-                "RESOLVER IP / DNS"
-            )
+            # Mantém no máximo um teste por segundo
+            tempo = time.perf_counter() - inicio
+            espera = max(0, INTERVALO - tempo)
 
-            print(
-                f"  {self.C_CIANO}[3]{self.RESET} "
-                "WEB BANNER GRABBING (HTTP)"
-            )
+            time.sleep(espera)
 
-            print(
-                f"  {self.C_CIANO}[4]{self.RESET} "
-                "DISPOSITIVOS NA REDE LOCAL (LAN Scan)"
-            )
+    except KeyboardInterrupt:
 
-            print(
-                f"  {self.C_CIANO}[5]{self.RESET} "
-                "LIMPAR CONSOLE"
-            )
+        limpar()
 
-            print(
-                f"  {self.C_CIANO}[0]{self.RESET} "
-                "ENCERRAR PAINEL"
-            )
-
-            print()
-
-            try:
-                opcao = input(
-                    f"{self.C_CIANO}"
-                    "┌── ( kali㉿vantathegod ) -[menu]\n"
-                    f"└─$ {self.RESET}"
-                ).strip()
-
-            except KeyboardInterrupt:
-                print(
-                    f"\n\n{self.C_CIANO}"
-                    "[!] Encerrando... Até mais, scxveryx!"
-                    f"{self.RESET}"
-                )
-                break
-
-            if opcao == "0":
-                print(
-                    f"\n{self.C_CIANO}"
-                    "[!] Encerrando... Até mais, scxveryx!"
-                    f"{self.RESET}"
-                )
-                break
-
-            elif opcao == "5":
-                continue
-
-            elif opcao == "4":
-                self.scan_rede_local()
-
-                input(
-                    f"\n{self.C_CIANO}"
-                    "[Pressione ENTER para retornar ao menu]"
-                    f"{self.RESET}"
-                )
-
-            elif opcao in ["1", "2", "3"]:
-                alvo = input(
-                    f"\n{self.C_CIANO}"
-                    "[?] Digite o Alvo "
-                    "(ex: site.com ou IP): "
-                    f"{self.RESET}"
-                ).strip()
-
-                if not alvo:
-                    continue
-
-                if opcao == "1":
-                    self.scan_portas_nativo(alvo)
-
-                elif opcao == "2":
-                    self.testar_ping(alvo)
-
-                elif opcao == "3":
-                    self.obter_headers(alvo)
-
-                input(
-                    f"\n{self.C_CIANO}"
-                    "[Pressione ENTER para retornar ao menu]"
-                    f"{self.RESET}"
-                )
-
-            else:
-                print(
-                    f"\n{self.C_CIANO}"
-                    "[X] Opção inválida."
-                    f"{self.RESET}"
-                )
-
-                input(
-                    f"\n{self.C_CIANO}"
-                    "[Pressione ENTER para continuar]"
-                    f"{self.RESET}"
-                )
+        print(
+            VERDE +
+            "Monitor encerrado."
+            + RESET
+        )
 
 
-# Inicia o programa quando o arquivo olho.py é executado diretamente
 if __name__ == "__main__":
-    painel = Painel1()
-    painel.abrir_interface()
+    main()
