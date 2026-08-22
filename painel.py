@@ -167,7 +167,7 @@ class Painel1:
         )
 
         print(
-            f" {self.C_WHITE}[+] {self.C_GRAY} Dev:"
+            f" {self.C_GRAY}[+] {self.C_GRAY} Dev:"
             f"{self.RESET} {self.C_GREEN}vbought{self.RESET}"
         )
 
