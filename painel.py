@@ -621,7 +621,7 @@ cli_ssl() {
             -servername "$dom" \
             -connect "$dom:443" 2>/dev/null |
         openssl x509 -noout -dates -issuer -subject 2>/dev/null
-    )"
+    )
 
     if [[ -z "$saida" ]]; then
         return 1
