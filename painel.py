@@ -614,7 +614,7 @@ cli_ssl() {
 
     local saida
 
-    saida="$(
+    saida=$(
         printf '\n' |
         executar_timeout 12 \
         openssl s_client \
