@@ -121,7 +121,7 @@ consultar_ddd() {
     local data
     data=$(api_get "https://brasilapi.com.br/api/ddd/v1/$ddd")
     if echo "$data" | python3 -c "import sys,json; json.load(sys.stdin)" 2>/dev/null; then
-        echo "$data" | python3 -c "
+        echo "$data" | python3 -c"
 import sys, json
 d = json.load(sys.stdin)
 uf = d.get('state','')
