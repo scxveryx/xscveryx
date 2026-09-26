@@ -714,7 +714,7 @@ cli_ip() {
     local ip="$1"
     local data
 
-    if [[ ! "$ip" =~ ^[0-9a-fA-F:.]+$ ]]; then
+    if [[ ! "$ip" =~ ^[0-a-fA-F:.]+$ ]]; then
         echo -e "${VERMELHO}Endereco IP invalido.${RESET}"
         return 1
     fi
