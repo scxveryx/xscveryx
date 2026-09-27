@@ -16,7 +16,7 @@ AMARELO='\033[1;33m'
 CIANO='\033[1;36m'
 RESET='\033[0m'
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" 2>/dev/null && pwd)"
+SCRIPT_DIR="$(cd ("dirname "$0")" 2>/dev/null && pwd)"
 HIST_FILE="$SCRIPT_DIR/.cybertrace_historico.log"
 
 # ============================================================
